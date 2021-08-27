@@ -1,0 +1,141 @@
+<script>
+  window.onload = async () => {
+    const container = Discourse.__container__;
+    
+    const categories = container.lookup("controller:navigation/categories").site.categories;
+
+    const addDocItems = () => {
+      console.log("hey");
+
+      setTimeout(() => {
+        document.querySelector(
+          ".title .panel-body"
+        ).innerHTML = `<div class="mobile-hash-sidebar">
+  <div class="heading">
+    Forum
+  </div>
+
+  <div class="forum-list">
+    <div>
+      <a href="/">
+        <img
+          src="https://raw.githubusercontent.com/hashintel/discourse-brand-header/main/assets/home.svg"
+        />
+        Home
+      </a>
+    </div>
+    <div>
+      <a href="/latest">
+        <img
+          src="https://raw.githubusercontent.com/hashintel/discourse-brand-header/main/assets/new-box.svg"
+        />
+        Latest
+      </a>
+    </div>
+    <div>
+      <a href="/unread">
+        <img
+          src="https://raw.githubusercontent.com/hashintel/discourse-brand-header/main/assets/inbox.svg"
+        />
+        Unread
+      </a>
+    </div>
+    <div>
+      <a href="/top">
+        <img
+          src="https://raw.githubusercontent.com/hashintel/discourse-brand-header/main/assets/trophy-variant-outline.svg"
+        />
+        Top
+      </a>
+    </div>
+
+    ${categories.map((category) => {
+      return `<div>
+      <a href="/c/${category.slug}/${category.id}" style="display: flex; align-items: center;">
+        <span style="background: #${category.color}; margin-right: 10px;" class="category-box"></span>
+
+        ${category.name}
+      </a>
+    </div>`;
+    }).join("\n")}
+    
+  </div>
+
+  <div class="heading">
+    More Resources
+  </div>
+
+  <div class="forum-list">
+    <div>
+      <a href="https://hash.ai/docs">
+        Documentation
+      </a>
+    </div>
+    <div>
+      <a href="https://hash.ai/glossary">
+        Glossary
+      </a>
+    </div>
+    <div>
+      <a
+        style="display: flex; align-items: center;"
+        href="https://hash.ai/discord"
+      >
+        <span style="margin-right: 5px;">
+          Discord
+        </span>
+        <img
+          src="https://raw.githubusercontent.com/hashintel/discourse-brand-header/main/assets/open-in-new.svg"
+        />
+      </a>
+    </div>
+  </div>
+
+  <div class="heading">
+    Discover Hash
+  </div>
+
+  <div class="forum-list">
+    <div>
+      <a href="https://hash.ai/index">
+        Explore
+      </a>
+    </div>
+    <div>
+      <a href="https://hash.ai/cases/optimization">
+        Use Cases
+      </a>
+    </div>
+    <div>
+      <a href="https://hash.ai/platform">
+        Platform
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
+        setTimeout(() => {
+          const links = document.querySelectorAll(".mobile-hash-sidebar a");
+
+          console.log({ links });
+
+          for (const link of links) {
+            console.log("attaching");
+            link.addEventListener("click", () => {
+              console.log("click");
+              document.querySelector(".panel.clearfix").click();
+            });
+          }
+        }, 100);
+      }, 100);
+    };
+
+    setTimeout(() => {
+      document
+        .querySelector(".b-header .header-dropdown-toggle")
+        .addEventListener("click", addDocItems);
+    }, 100);
+    console.log("attached");
+  };
+</script>
