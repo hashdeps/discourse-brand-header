@@ -157,7 +157,7 @@
       return [h("div.mobile-hash-sidebar", [
       h("a.close-icon",  [h("img", {
         src: "https://raw.githubusercontent.com/hashdeps/discourse-brand-header/main/assets/close.svg"
-      }),  pageTitle]),
+      }),  h("b", pageTitle)]),
         h("div.heading", "Forum"),
         forumLinks,
         h("div.heading", "More Resources"),

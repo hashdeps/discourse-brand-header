@@ -86,9 +86,10 @@
   }
 
   .close-icon {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     display: flex !important;
     height: 100%;
+    font-size: 15px;
 
     img {
       height: max-content;
@@ -102,7 +103,7 @@
     font-family: Inter;
     font-style: normal;
     font-weight: bold;
-    font-size: 12px;
+    font-size: 15px;
     line-height: 15px;
     /* identical to box height */
 
@@ -123,11 +124,16 @@
     margin-bottom: 30px;
 
     div {
-      margin-bottom: 10px;
+      margin-bottom: 20px;
     }
 
     img {
-      margin-right: 5px;
+      margin-right: 10px;
+    }
+
+    a {
+      display: flex;
+      align-items: center;
     }
 
     .category-box {
@@ -143,16 +149,16 @@
 
 div.title > a {
   font-size: 25px;
-
-  img {
-    display: none;
-  }
 }
 
 .d-header .title {
   white-space: inherit;
 }
 
-#toggle-hamburger-brand-menu img {
+#toggle-hamburger-brand-menu svg {
   color: black;
+}
+
+#site-logo {
+  height: 1em;
 }
