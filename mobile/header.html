@@ -1,5 +1,5 @@
 <script type="text/discourse-plugin" version="0.8">
-  const { h } = require('virtual-dom');
+    const { h } = require('virtual-dom');
   const { later } = require('@ember/runloop');
 
   api.createWidget('brand-header-icon', {
@@ -11,12 +11,12 @@
 
     html(attrs) {
       const hamburger = this.attach('header-dropdown', {
-                              title: 'hamburger_brand_menu',
-                              icon: 'bars',
-                              iconId: 'toggle-hamburger-brand-menu',
-                              active: attrs.brandMenuVisible,
-                              action: 'toggleBrandMenu'
-                            });
+        title: 'hamburger_brand_menu',
+        icon: 'bars',
+        iconId: 'toggle-hamburger-brand-menu',
+        active: attrs.brandMenuVisible,
+        action: 'toggleBrandMenu'
+      });
       const icons = [hamburger];
       return icons;
     },
@@ -25,15 +25,115 @@
   api.createWidget('hamburger-brand-menu', {
     tagName: 'div.hamburger-panel',
 
-    panelContents(generalLinks, iconLinks) {
-      const results = [];
+    panelContents() {
 
-      results.push(this.attach('brand-logo'));
-      results.push(h('hr'));
-      results.push(this.attach('menu-links', { contents: () => generalLinks }));
-      results.push(this.attach('nav-icons', { contents: () => iconLinks }));
+      const container = Discourse.__container__;
 
-      return results;
+      const categories = container.lookup("controller:navigation/categories").site.categories;
+
+      const forumListData = [
+        {
+          link: "/",
+          src: "https://raw.githubusercontent.com/hashintel/discourse-brand-header/main/assets/home.svg",
+          title: "Home"
+        },
+        {
+          link: "/latest",
+          src: "https://raw.githubusercontent.com/hashintel/discourse-brand-header/main/assets/new-box.svg",
+          title: "Latest"
+        },
+        {
+          link: "/unread",
+          src: "https://raw.githubusercontent.com/hashintel/discourse-brand-header/main/assets/inbox.svg",
+          title: "Unread"
+        },
+        {
+          link: "/top",
+          src: "https://raw.githubusercontent.com/hashintel/discourse-brand-header/main/assets/trophy-variant-outline.svg",
+          title: "Top"
+        }
+      ]
+
+      const forumList = [
+        ...forumListData.map(({ link, src, title }) => h("div",
+          h("a", { href: link },
+            [h("img", {
+              src
+            }), title])
+
+        )),
+        ...categories.map(category => h("div",
+          h("a", { href: `/c/${category.slug}/${category.id}` },
+            [h("span.category-box", {
+              style: {
+                background: `#${category.color}`,
+                marginRight: "10px"
+              }
+            }), category.name])
+
+        ))
+      ]
+
+      const forumLinks = [h("div.forum-list", forumList)];
+
+      const resourceLinks = [
+        h("div.forum-list", [
+          h("div", h("a", {
+            href: "https://hash.ai/docs"
+          },
+            "Documentation"
+          )),
+          h("div", h("a", {
+            href: "https://hash.ai/glossary"
+          },
+            "Glossary"
+          )),
+          h("div", h("a", {
+            href: "https://hash.ai/discord"
+          },
+            [
+              h("span", {
+                style: {
+                  marginRight: "10px"
+                }
+              }, "Discord"),
+              h("img", {
+                src: "https://raw.githubusercontent.com/hashintel/discourse-brand-header/main/assets/open-in-new.svg"
+              })
+            ]
+          ))
+        ]
+        )]
+
+      const discoverLinkItems = [
+        {
+          href: "https://hash.ai/index",
+          title: "Explore"
+        },
+        {
+          href: "https://hash.ai/cases/optimization",
+          title: "Use Cases"
+        },
+        {
+          href: "https://hash.ai/platform",
+          title: "Platform"
+        }
+      ]
+
+      const discoverLinks = [h("div.forum-list", discoverLinkItems.map(({ href, title }) => h("div", h("a", {
+        href
+      },
+        title
+      ))))]
+
+      return [h("div.mobile-hash-sidebar", [
+        h("div.heading", "Forum"),
+        forumLinks,
+        h("div.heading", "More Resources"),
+        resourceLinks,
+        h("div.heading", "Discover Hash"),
+        discoverLinks
+      ])];
     },
 
     html(attrs) {
@@ -52,42 +152,40 @@
     }
   });
 
-  if (!settings.show_bar_on_mobile) {
-    api.reopenWidget('brand-header', {
-      defaultState() {
-        let states =  {
-          brandMenuVisible: false
-        };
 
-        return states;
-      },
+  api.reopenWidget('brand-header', {
+    defaultState() {
+      let states = {
+        brandMenuVisible: false
+      };
 
-      toggleBrandMenu() {
-        this.state.brandMenuVisible = !this.state.brandMenuVisible;
+      return states;
+    },
 
-        if (!this.state.brandMenuVisible) {
-          const headerCloak = document.querySelector('.header-cloak');
-          headerCloak.classList.remove("animate");
-          headerCloak.removeAttribute("style");
-        }
-      },
+    toggleBrandMenu() {
+      this.state.brandMenuVisible = !this.state.brandMenuVisible;
 
-      html(attrs, state) {
-        const { siteSettings } = this;
-        const panelContents = [];
-
-        panelContents.push(this.attach('brand-header-icon', { brandMenuVisible: state.brandMenuVisible }));
-
-        if (state.brandMenuVisible) {
-          panelContents.push(this.attach('hamburger-brand-menu', { generalLinks: this.generalLinks(), iconLinks: this.iconLinks() }));
-        }
-
-        return panelContents;
+      if (!this.state.brandMenuVisible) {
+        const headerCloak = document.querySelector('.header-cloak');
+        headerCloak.classList.remove("animate");
+        headerCloak.removeAttribute("style");
       }
-    });
+    },
 
-    api.decorateWidget("home-logo:before", helper => {
-      return [helper.widget.attach('brand-header')];
-    });
-  }
+    html(attrs, state) {
+      const panelContents = [];
+
+      panelContents.push(this.attach('brand-header-icon', { brandMenuVisible: state.brandMenuVisible }));
+
+      if (state.brandMenuVisible) {
+        panelContents.push(this.attach('hamburger-brand-menu', { generalLinks: this.generalLinks(), iconLinks: this.iconLinks() }));
+      }
+
+      return panelContents;
+    }
+  });
+
+  api.decorateWidget("home-logo:before", helper => {
+    return [helper.widget.attach('brand-header')];
+  });
 </script>

@@ -1,0 +1,26 @@
+<script>
+  window.onload = async () => {
+    const addDocItems = () => {
+      setTimeout(() => {
+        const links = document.querySelectorAll(".mobile-hash-sidebar a");
+
+        for (const link of links) {
+          link.addEventListener("click", () => {
+            document.querySelector(".panel.clearfix").click();
+          });
+        }
+      }, 100);
+    };
+
+    setTimeout(() => {
+      document
+        .querySelector(".b-header .header-dropdown-toggle")
+        .addEventListener("click", addDocItems);
+    }, 100);
+    
+    
+    document.querySelector("div.title > a").innerHTML = `<b>HASH</b> <span> Forum</span>`
+  };
+  
+  document.querySelector("div.title > a").innerHTML = `<b>HASH</b> <span> Forum</span>`
+</script>

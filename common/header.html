@@ -5,6 +5,13 @@
 
   const flatten = array => [].concat.apply([], array);
 
+  const settings = {
+    links: "",
+    iconLinks: "",
+    brand_name: "",
+    website_url: ""
+  }
+
   api.createWidget('nav-links', {
     tagName: 'nav.links',
 

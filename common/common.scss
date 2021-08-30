@@ -1,3 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
+
+body {
+    font-family: Inter;
+}
+
 .b-header {
   .contents {
     margin: 8px 0;
@@ -77,4 +83,25 @@
       float: left;
     }
   }
+}
+
+.b-header {
+  background-color: white !important;
+}
+
+.b-header .nav-pills>li>a {
+  color: black !important;
+  transition: opacity 0.1s;
+  border-bottom: 4px solid transparent;
+  font-weight: 600;
+  
+  padding: 0px !important;
+  margin: 6px 12px;
+  margin-bottom: 2px;
+}
+
+.b-header .nav-pills>li>a:hover {
+  opacity: 0.8;
+  background-color: white !important;
+  border-bottom: 4px solid #dbe0e3;
 }
