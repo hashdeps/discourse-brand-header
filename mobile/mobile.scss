@@ -28,7 +28,7 @@
   margin: 0;
 
   .d-icon {
-    font-size: 1.143em;
+    font-size: 1.4em;
     vertical-align: middle;
   }
 }
@@ -86,10 +86,9 @@
   }
 
   .close-icon {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     display: flex !important;
     height: 100%;
-    font-size: 15px;
 
     img {
       height: max-content;
@@ -148,7 +147,13 @@
 }
 
 div.title > a {
-  font-size: 25px;
+  font-size: 20px;
+}
+
+header {
+  div.title > a {
+    line-height: 0px;
+  }
 }
 
 .d-header .title {
