@@ -1,3 +1,28 @@
+<link
+  rel="preload"
+  href="https://raw.githubusercontent.com/hashdeps/discourse-brand-header/main/assets/home.svg"
+/>
+<link
+  rel="preload"
+  href="https://raw.githubusercontent.com/hashdeps/discourse-brand-header/main/assets/new-box.svg"
+/>
+<link
+  rel="preload"
+  href="https://raw.githubusercontent.com/hashdeps/discourse-brand-header/main/assets/inbox.svg"
+/>
+<link
+  rel="preload"
+  href="https://raw.githubusercontent.com/hashdeps/discourse-brand-header/main/assets/trophy-variant-outline.svg"
+/>
+<link
+  rel="preload"
+  href="https://raw.githubusercontent.com/hashdeps/discourse-brand-header/main/assets/open-in-new.svg"
+/>
+<link
+  rel="preload"
+  href="https://raw.githubusercontent.com/hashdeps/discourse-brand-header/main/assets/close.svg"
+/>
+
 <script type="text/discourse-plugin" version="0.8">
     const { h } = require('virtual-dom');
   const { later } = require('@ember/runloop');
@@ -34,22 +59,22 @@
       const forumListData = [
         {
           link: "/",
-          src: "https://raw.githubusercontent.com/hashintel/discourse-brand-header/main/assets/home.svg",
+          src: "https://raw.githubusercontent.com/hashdeps/discourse-brand-header/main/assets/home.svg",
           title: "Home"
         },
         {
           link: "/latest",
-          src: "https://raw.githubusercontent.com/hashintel/discourse-brand-header/main/assets/new-box.svg",
+          src: "https://raw.githubusercontent.com/hashdeps/discourse-brand-header/main/assets/new-box.svg",
           title: "Latest"
         },
         {
           link: "/unread",
-          src: "https://raw.githubusercontent.com/hashintel/discourse-brand-header/main/assets/inbox.svg",
+          src: "https://raw.githubusercontent.com/hashdeps/discourse-brand-header/main/assets/inbox.svg",
           title: "Unread"
         },
         {
           link: "/top",
-          src: "https://raw.githubusercontent.com/hashintel/discourse-brand-header/main/assets/trophy-variant-outline.svg",
+          src: "https://raw.githubusercontent.com/hashdeps/discourse-brand-header/main/assets/trophy-variant-outline.svg",
           title: "Top"
         }
       ]
@@ -89,7 +114,8 @@
             "Glossary"
           )),
           h("div", h("a", {
-            href: "https://hash.ai/discord"
+            href: "https://hash.ai/discord",
+            target: "_blank"
           },
             [
               h("span", {
@@ -98,7 +124,7 @@
                 }
               }, "Discord"),
               h("img", {
-                src: "https://raw.githubusercontent.com/hashintel/discourse-brand-header/main/assets/open-in-new.svg"
+                src: "https://raw.githubusercontent.com/hashdeps/discourse-brand-header/main/assets/open-in-new.svg"
               })
             ]
           ))
@@ -126,7 +152,12 @@
         title
       ))))]
 
+      const pageTitle = document.title.replace("- Discourse", "").trim()
+
       return [h("div.mobile-hash-sidebar", [
+      h("a.close-icon",  [h("img", {
+        src: "https://raw.githubusercontent.com/hashdeps/discourse-brand-header/main/assets/close.svg"
+      }),  pageTitle]),
         h("div.heading", "Forum"),
         forumLinks,
         h("div.heading", "More Resources"),

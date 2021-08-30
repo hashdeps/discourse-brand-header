@@ -15,6 +15,12 @@
 
   > ul.icons {
     margin: 0 10px 0 0;
+
+    a {
+      width: max-content !important;
+      height: max-content !important;
+      line-height: 0px !important;
+    }
   }
 }
 
@@ -61,61 +67,92 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
 
 .title .panel-body ul {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .header-dropdown-toggle.hamburger-dropdown {
-    display: none;
+  display: none;
 }
 
 .mobile-hash-sidebar {
-    padding: 20px;
+  padding: 20px;
+  padding-top: 10px;
+  overflow: hidden;
+
+  a {
+    color: inherit;
+    text-decoration: inherit;
+  }
+
+  .close-icon {
+    margin-bottom: 20px;
+    display: flex !important;
+    height: 100%;
+
+    img {
+      height: max-content;
+      margin-top: 4px;
+      margin-right: 10px;
+      height: max-content;
+    }
+  }
+
+  .heading {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 15px;
+    /* identical to box height */
+
+    text-transform: uppercase;
+
+    color: #7f8487;
+    margin-bottom: 20px;
+  }
+
+  .forum-list {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 18px;
+
+    color: #000000;
+    margin-bottom: 30px;
+
+    div {
+      margin-bottom: 10px;
+    }
+
+    img {
+      margin-right: 5px;
+    }
+
+    .category-box {
+      background: black;
+      height: 14px;
+      width: 14px;
+      border-radius: 3px;
+      display: inline-block;
+      margin-right: 5px;
+    }
+  }
 }
 
-.mobile-hash-sidebar a {
-  color: inherit;
-  text-decoration: inherit;
+div.title > a {
+  font-size: 25px;
+
+  img {
+    display: none;
+  }
 }
 
-.mobile-hash-sidebar .heading {
-  font-family: Inter;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 12px;
-  line-height: 15px;
-  /* identical to box height */
-
-  text-transform: uppercase;
-
-  color: #7f8487;
-  margin-bottom: 12px;
+.d-header .title {
+  white-space: inherit;
 }
 
-.mobile-hash-sidebar .forum-list {
-  font-family: Inter;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 15px;
-  line-height: 18px;
-
-  color: #000000;
-  margin-bottom: 30px;
-}
-
-.mobile-hash-sidebar .forum-list div {
-  margin-bottom: 10px;
-}
-
-.mobile-hash-sidebar .forum-list img {
-  margin-right: 5px;
-}
-
-.mobile-hash-sidebar .forum-list .category-box {
-  background: black;
-  height: 14px;
-  width: 14px;
-  border-radius: 3px;
-  display: inline-block;
-  margin-right: 5px;
+#toggle-hamburger-brand-menu img {
+  color: black;
 }
