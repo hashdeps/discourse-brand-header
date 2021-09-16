@@ -218,8 +218,8 @@ header {
 
   .rah-static {
     max-height: 0px;
-    display: none;
-    transition: 1s ease max-height;
+    transition: 0.1s ease max-height;
+    overflow: hidden
   }
 
   &.open {
@@ -231,7 +231,6 @@ header {
 
     .rah-static {
       max-height: 9999px;
-      display: inherit;
     }
   }
 
