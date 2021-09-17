@@ -174,7 +174,7 @@
     clickOutside(e) {
       const panel = document.querySelector('.menu-panel');
       panel.classList.add("animate");
-      panel.style.left = `${-window.innerWidth}px`;
+      panel.style.right = `${-window.innerWidth}px`;
 
       const headerCloak = document.querySelector('.header-cloak');
       headerCloak.classList.add("animate");
@@ -216,7 +216,7 @@
     }
   });
 
-  api.decorateWidget("home-logo:before", helper => {
+  api.decorateWidget("header:after", helper => {
     return [helper.widget.attach('brand-header')];
   });
 </script>

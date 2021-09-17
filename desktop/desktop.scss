@@ -3,6 +3,7 @@
   background-color: var(--tertiary);
   height: 48px;
   margin-bottom: 0;
+  border-bottom: 1px solid #e5e5e5;
 
   .title {
     float: left;
@@ -104,72 +105,70 @@
   }
 }
 
-
 .learning-hash-banner span {
-    color: #646c74;
+  color: #646c74;
 }
 
 .b-header {
-    height: 96px !important;
-    display: flex;
-    align-items: center;
+  height: 96px !important;
+  display: flex;
+  align-items: center;
 }
 
 .b-header .wrap {
-    width: 100%;
+  width: 100%;
 }
 
-.d-header {
-background: #f5f5f5;
-height: auto;
+.d-header #site-logo {
+  height: 2rem;
 }
 
 .learning-hash-banner {
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
+  background: #f5f5f5;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 .learning-hash-banner a > span {
-    color: black;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
-    align-items: center;
-    height: 20px;
+  color: black;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 20px;
 }
 
 .learning-hash-banner .desktop .learn-styles {
-    margin: 15px 20px 12px 0px;
-    display: inline-block;
+  margin: 15px 20px 12px 0px;
+  display: inline-block;
 }
 
 .learning-hash-banner .desktop a {
-    padding: 11px 0 12px 0;
-    display: inline-block;
+  padding: 11px 0 12px 0;
+  display: inline-block;
 }
 
 .learning-hash-banner .desktop > :not(:last-child) {
-    margin-right: 20px;
+  margin-right: 20px;
 }
 
 .learning-hash-banner .desktop a {
-    border-bottom: 3px solid transparent;
-    -webkit-transition: border-color 0.2s;
-    -o-transition: border-color 0.2s;
-    transition: border-color 0.2s;
+  border-bottom: 3px solid transparent;
+  -webkit-transition: border-color 0.2s;
+  -o-transition: border-color 0.2s;
+  transition: border-color 0.2s;
 }
 
 .learning-hash-banner .desktop a:hover {
-    border-color: rgba(36, 130, 255, 0.6);
+  border-color: rgba(36, 130, 255, 0.6);
 }
 
 .learning-hash-banner .desktop a.active-case {
-    border-color: #2482ff;
+  border-color: #2482ff;
 }
-
 
 .logo-component {
   display: flex;
