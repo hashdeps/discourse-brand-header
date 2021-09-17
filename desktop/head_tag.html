@@ -26,17 +26,17 @@
       const user = Discourse.currentUser;
 
       if (!user) {
-        // document
-        //   .getElementById("hash-signin-links")
-        //   .classList.remove("no-display");
+        document
+          .getElementById("hash-signin-links")
+          .classList.remove("no-display");
 
-        // document.querySelector("#hash-signin-links #signup").href = `${
-        //   document.querySelector("#hash-signin-links #signup").href
-        // }?redirect=${location.href}`;
+        document.querySelector("#hash-signin-links #signup").href = `${
+          document.querySelector("#hash-signin-links #signup").href
+        }?redirect=${location.href}`;
 
-        // document.querySelector("#hash-signin-links #login").href = `${
-        //   document.querySelector("#hash-signin-links #login").href
-        // }?redirect=${location.href}`;
+        document.querySelector("#hash-signin-links #login").href = `${
+          document.querySelector("#hash-signin-links #login").href
+        }?redirect=${location.href}`;
       }
 
       clearInterval(authInterval);
