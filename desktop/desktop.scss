@@ -5,6 +5,11 @@
   margin-bottom: 0;
   border-bottom: 1px solid #e5e5e5;
 
+  .align-center {
+    display: flex;
+    align-items: center;
+  }
+
   .title {
     float: left;
     margin-right: 24px;
@@ -23,10 +28,23 @@
 }
 
 .b-header {
+  height: 96px !important;
+  display: flex;
+  align-items: center;
+
+  .wrap {
+    width: 100%;
+  }
+
   .contents {
     margin: 8px 0;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+
+    .no-display {
+      display: none;
+    }
   }
 
   #brand-logo {
@@ -105,22 +123,14 @@
   }
 }
 
-.learning-hash-banner span {
-  color: #646c74;
-}
+.d-header {
+  #site-logo {
+    height: 2rem;
+  }
 
-.b-header {
-  height: 96px !important;
-  display: flex;
-  align-items: center;
-}
-
-.b-header .wrap {
-  width: 100%;
-}
-
-.d-header #site-logo {
-  height: 2rem;
+  .header-buttons {
+    display: none;
+  }
 }
 
 .learning-hash-banner {
@@ -128,6 +138,10 @@
   font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
+
+  span {
+    color: #646c74;
+  }
 }
 
 .learning-hash-banner a > span {
