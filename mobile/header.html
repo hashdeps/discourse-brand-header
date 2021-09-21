@@ -22,6 +22,14 @@
   rel="preload"
   href="https://raw.githubusercontent.com/hashdeps/discourse-brand-header/main/assets/close.svg"
 />
+<link
+  rel="preload"
+  href="https://raw.githubusercontent.com/hashdeps/discourse-brand-header/main/assets/signup.svg"
+/>
+<link
+  rel="preload"
+  href="https://raw.githubusercontent.com/hashdeps/discourse-brand-header/main/assets/signin.svg"
+/>
 
 <script type="text/discourse-plugin" version="0.8">
     const { h } = require('virtual-dom');
@@ -53,6 +61,7 @@
     panelContents() {
 
       const container = Discourse.__container__;
+      const user = Discourse.currentUser;
 
       const categories = container.lookup("controller:navigation/categories").site.categories;
 
@@ -100,6 +109,34 @@
       ]
 
       const forumLinks = [h("div.forum-list", forumList)];
+
+      const signUpLinks = h(`div.hash-signup-links.forum-list`, [
+      h("div", h("a", {href: `https://hash.ai/signup?redirect=${location.href}`}, [
+      h("img", {
+        src: "https://raw.githubusercontent.com/hashdeps/discourse-brand-header/main/assets/signup.svg",
+        style: {
+          marginLeft: "-5px"
+        }
+      }),
+              h("span", "Sign Up")
+
+
+      ])),
+      h("div", h("a", {href: `https://hash.ai/signin?redirect=${location.href}`}, [
+      h("img", {
+        src: "https://raw.githubusercontent.com/hashdeps/discourse-brand-header/main/assets/signin.svg",
+        style: {
+          marginLeft: "-5px"
+        }
+      }),
+              h("span", "Sign In")
+      ]))
+
+      ])
+
+
+
+
 
       const resourceLinks = [
         h("div.forum-list", [
@@ -152,13 +189,18 @@
         title
       ))))]
 
-      const pageTitle = document.title.replace("- Discourse", "").trim()
+      const pageTitle = document.title.replace("- Discourse", "").trim();
+
+      const returnHtml = [ h("a.close-icon",  [h("img", {
+        src: "https://raw.githubusercontent.com/hashdeps/discourse-brand-header/main/assets/close.svg"
+      }),  h("b", pageTitle)])];
+
+      if(!user) {
+        returnHtml.push(signUpLinks)
+      }
 
       return [h("div.mobile-hash-sidebar", [
-      h("a.close-icon",  [h("img", {
-        src: "https://raw.githubusercontent.com/hashdeps/discourse-brand-header/main/assets/close.svg"
-      }),  h("b", pageTitle)]),
-        h("a#sign-in.no-display", {href: `https://hash.ai/signin?redirect=${location.href}`}, [h("")])
+        ...returnHtml,
         h("div.heading", "Forum"),
         forumLinks,
         h("div.heading", "More Resources"),
