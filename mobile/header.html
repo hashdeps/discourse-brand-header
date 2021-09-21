@@ -75,18 +75,22 @@
           link: "/latest",
           src: "https://raw.githubusercontent.com/hashdeps/discourse-brand-header/main/assets/new-box.svg",
           title: "Latest"
-        },
-        {
+        }
+      ];
+
+      if(user) {
+        forumListData.push({
           link: "/unread",
           src: "https://raw.githubusercontent.com/hashdeps/discourse-brand-header/main/assets/inbox.svg",
           title: "Unread"
-        },
-        {
-          link: "/top",
-          src: "https://raw.githubusercontent.com/hashdeps/discourse-brand-header/main/assets/trophy-variant-outline.svg",
-          title: "Top"
-        }
-      ]
+        })
+      }
+
+      forumListData.push({
+        link: "/top",
+        src: "https://raw.githubusercontent.com/hashdeps/discourse-brand-header/main/assets/trophy-variant-outline.svg",
+        title: "Top"
+      })
 
       const forumList = [
         ...forumListData.map(({ link, src, title }) => h("div",
@@ -211,6 +215,12 @@
     },
 
     html(attrs) {
+      if(!window.hashSideBarOpen) {
+        return this.sendWidgetAction("toggleBrandMenuClose");
+      }
+
+      window.hashSideBarOpen = false;
+
       return this.attach('menu-panel', { contents: () => this.panelContents(attrs.generalLinks, attrs.iconLinks) });
     },
 
@@ -236,6 +246,14 @@
       return states;
     },
 
+    toggleBrandMenuClose() {
+      this.state.brandMenuVisible = !this.state.brandMenuVisible;
+
+      const headerCloak = document.querySelector('.header-cloak');
+      headerCloak.classList.remove("animate");
+      headerCloak.removeAttribute("style");
+    },
+
     toggleBrandMenu() {
       this.state.brandMenuVisible = !this.state.brandMenuVisible;
 
@@ -243,6 +261,8 @@
         const headerCloak = document.querySelector('.header-cloak');
         headerCloak.classList.remove("animate");
         headerCloak.removeAttribute("style");
+      } else {
+        window.hashSideBarOpen = true;
       }
     },
 
