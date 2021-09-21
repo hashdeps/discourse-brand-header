@@ -41,7 +41,6 @@
       clearInterval(desktopRenderInterval);
 
       if (document.querySelector("body").scrollWidth > 900) {
-        console.log("running this");
         location.href = `${location.href.split("?")[0]}?mobile_view=0`;
       }
     }
@@ -54,9 +53,25 @@
 
         for (const link of links) {
           link.addEventListener("click", () => {
-            document.querySelector(".panel.clearfix").click();
+            document.querySelector(".contents.clearfix").click();
           });
         }
+
+        // const menuCloseListener = document
+        //   .querySelector(".menu-panel")
+        //   .addEventListener("touchmove", () => {
+        //     if (
+        //       document
+        //         .querySelector(".menu-panel")
+        //         .style.left.replace("px", "") < -110
+        //     ) {
+        //       document.querySelector(".contents.clearfix").click();
+
+        //       document
+        //         .querySelector(".menu-panel")
+        //         .removeEventListener("touchmove", menuCloseListener);
+        //     }
+        //   });
       }, 100);
     };
 
