@@ -148,7 +148,7 @@
         const user = Discourse.currentUser;
 
         if (!user) {
-          const userData = (await fetch("https://devapi.hash.ai/graphql", {
+          const userData = (await fetch("https://api.hash.ai/graphql", {
       "credentials": "include",
       "headers": {
           "Accept": "*/*",
