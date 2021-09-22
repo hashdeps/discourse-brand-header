@@ -26,7 +26,7 @@
           }).then((response) => response.json())
         ).data;
 
-        if (userData) {
+        if (userData.me) {
           document.querySelector(".login-button").click();
         }
       }
