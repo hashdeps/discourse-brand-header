@@ -140,37 +140,3 @@
     }
   });
 </script>
-<script>
-    const authInterval = setInterval(() => {
-      if (document.getElementById("hash-signin-links")) {
-        clearInterval(authInterval);
-
-        const user = Discourse.currentUser;
-
-        if (!user) {
-          const userData = (await fetch("https://api.hash.ai/graphql", {
-      "credentials": "include",
-      "headers": {
-          "Accept": "*/*",
-          "Accept-Language": "en-US,en;q=0.5",
-          "content-type": "application/json",
-          "apollographql-client-name": "hash.ai",
-          "Alt-Used": "hash.ai",
-          "Sec-Fetch-Dest": "empty",
-          "Sec-Fetch-Mode": "cors",
-          "Sec-Fetch-Site": "same-site"
-      },
-      "referrer": "https://hash.ai/",
-      "body": "{\"operationName\":\"me\",\"variables\":{\"withDatasets\":false},\"query\":\"query me($withDatasets: Boolean = false) {\\n  me {\\n    ...UserFields\\n    datasets @include(if: $withDatasets) {\\n      id\\n      name\\n      format\\n      __typename\\n    }\\n    __typename\\n  }\\n}\\n\\nfragment UserFields on User {\\n  id\\n  givenName\\n  familyName\\n  fullName\\n  shortname\\n  biography\\n  location\\n  starredProjects\\n  url\\n  lastLogin\\n  paymentMethods {\\n    __typename\\n    id\\n    brand\\n    last4\\n    default\\n    expiry\\n  }\\n  invoices {\\n    __typename\\n    total\\n    number\\n    periodStart\\n    periodEnd\\n    created\\n    status\\n    clientSecret\\n  }\\n  upcomingInvoice {\\n    __typename\\n    total\\n    number\\n    periodStart\\n    periodEnd\\n    created\\n    status\\n  }\\n  knowsLanguage\\n  memberOf {\\n    __typename\\n    org {\\n      __typename\\n      id\\n      name\\n      shortname\\n      avatar\\n      logo\\n      memberCount\\n    }\\n    role {\\n      __typename\\n      id\\n      name\\n    }\\n    jobTitle\\n  }\\n  telephone\\n  image\\n  email\\n  role {\\n    __typename\\n    id\\n    name\\n  }\\n  staffMember\\n  createdAt\\n  updatedAt\\n  __typename\\n}\\n\"}",
-      "method": "POST",
-      "mode": "cors"
-  }).then(response => response.json())).data;
-
-  if(userData) {
-    document.querySelector(".login-button").click();
-  }
-        }
-
-      }
-    }, 100);
-</script>
