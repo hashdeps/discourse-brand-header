@@ -21,7 +21,7 @@
     }
   }, 100);
 
-  const authInterval = setInterval(() => {
+  const desktopAuthInterval = setInterval(() => {
     if (document.getElementById("hash-signin-links")) {
       const user = Discourse.currentUser;
 
@@ -39,7 +39,7 @@
         }?redirect=${location.href}`;
       }
 
-      clearInterval(authInterval);
+      clearInterval(desktopAuthInterval);
     }
   }, 100);
 </script>

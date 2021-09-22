@@ -5,11 +5,7 @@
 
       const user = Discourse.currentUser;
 
-      console.log({ user });
-
       if (!user) {
-        console.log("no user");
-
         const userData = (
           await fetch("https://api.hash.ai/graphql", {
             credentials: "include",
@@ -30,10 +26,7 @@
           }).then((response) => response.json())
         ).data;
 
-        console.log({ userData });
-
         if (userData) {
-          console.log("click button");
           document.querySelector(".login-button").click();
         }
       }
