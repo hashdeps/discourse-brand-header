@@ -193,11 +193,9 @@
         title
       ))))]
 
-      const pageTitle = document.title.replace("- Discourse", "").trim();
-
       const returnHtml = [ h("a.close-icon",  [h("img", {
         src: "https://raw.githubusercontent.com/hashdeps/discourse-brand-header/main/assets/close.svg"
-      }),  h("b", pageTitle)])];
+      }),  h("b", "HASH")])];
 
       if(!user) {
         returnHtml.push(signUpLinks)
