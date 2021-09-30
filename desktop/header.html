@@ -31,7 +31,8 @@
             </li>
             <li>
               <a
-                class="widget-link"
+                class="widget-link no-display"
+                id="use-cases-title"
                 href="https://hash.ai/cases/optimization"
                 title="Use Cases"
                 target=""
@@ -43,8 +44,19 @@
                 class="widget-link"
                 href="https://hash.ai/platform"
                 title="Platform"
+                id="platform-title"
                 target=""
                 >Platform</a
+              >
+            </li>
+            <li>
+              <a
+                class="widget-link no-display"
+                id="projects-title"
+                href="https://hash.ai/"
+                title="Projects"
+                target=""
+                >Projects</a
               >
             </li>
             <li>
@@ -87,3 +99,34 @@
     </div>
   </div>
 </header>
+
+<script type="text/discourse-plugin" version="0.8">
+  api.onPageChange((url, title) => {
+    const user = Discourse.currentUser;
+
+      if (!user) {
+        document
+          .getElementById("hash-signin-links")
+          .classList.remove("no-display");
+
+        document
+        .getElementById("use-cases-title")
+        .classList.remove("no-display");
+
+        document.querySelector("#hash-signin-links #signup").href = `https://hash.ai/signup?redirect=${window.location.origin}${url}`;
+
+        document.querySelector("#hash-signin-links #login").href = `https://hash.ai/signin?redirect=${window.location.origin}${url}`;
+      } else {
+        document
+        .getElementById("platform-title")
+        .classList.add("no-display");
+
+        document
+        .getElementById("projects-title")
+        .classList.remove("no-display");
+
+        document
+        .getElementById("projects-title").href = `https://hash.ai/@${user.username}`
+      }
+  });
+</script>
