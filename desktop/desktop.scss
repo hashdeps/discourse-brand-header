@@ -124,8 +124,22 @@
 }
 
 .d-header {
+  height: 50px;
+
+  .wrap {
+    padding-top: 10px;
+
+    .contents {
+      height: auto;
+
+      .extra-info-wrapper {
+        margin-top: -5px;
+      }
+    }
+  }
+
   #site-logo {
-    height: 2rem;
+    display: none;
   }
 }
 
