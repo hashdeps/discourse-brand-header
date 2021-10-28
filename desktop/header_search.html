@@ -1,0 +1,274 @@
+<script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>  
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/lodash@4.17.21/lodash.js" crossorigin></script>
+<script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.5.1/dist/algoliasearch.umd.js"></script>
+
+<script>
+    const searchRenderInterval = setInterval(() => {
+        if(document.querySelector(".search-dropdown")) {
+            clearInterval(searchRenderInterval);
+            document.querySelector(".search-dropdown").insertAdjacentHTML("afterend", "<li id=\"search-react-root\"></li>");
+
+const e = React.createElement;
+
+"use strict";
+
+// EXTERNAL MODULE: external "react"
+var external_react_ = React;
+var external_react_default = React;
+
+// EXTERNAL MODULE: external "lodash"
+var external_lodash_ = _;
+
+// EXTERNAL MODULE: external "algoliasearch"
+var external_algoliasearch_default = algoliasearch;
+
+// CONCATENATED MODULE: ./src/components/docs/Search/SearchItem.tsx
+var __jsx = external_react_default.createElement;
+
+const algoliaTypeMap = {
+  docs: "Docs",
+  glossary: "Glossary"
+};
+function SearchItem({
+  searchResult,
+  closeDrawer,
+  index,
+  getHighlight,
+  activeResult,
+  setActiveResult,
+  variant,
+  closeResultsMenu
+}) {
+  var _highlightResult$cont;
+
+  const intersectionRef = external_react_default.useRef(null);
+
+  const previousActiveResult = Object(external_react_["useRef"])(null);
+  Object(external_react_["useEffect"])(() => {
+    return () => {
+      previousActiveResult.current = activeResult;
+    };
+  }, [activeResult]);
+
+  const {
+    title,
+    _highlightResult,
+    slug,
+    type
+  } = searchResult;
+  return __jsx("a", {
+    ref: intersectionRef,
+    href: `/${type}/${slug}`,
+    onClick: () => {
+      closeResultsMenu();
+
+      if (closeDrawer) {
+        closeDrawer();
+      }
+    },
+    onMouseEnter: () => {
+      setActiveResult(index);
+    },
+    className: `search-list-item search-list-item-${index} ${activeResult === index ? `active` : ``}`
+  }, __jsx("div", {
+    className: "search-list-item-container"
+  }, __jsx("div", {
+    className: "search-content-title"
+  }, algoliaTypeMap[type], " ", __jsx("div", null, "chevron_right"), " ", title), (_highlightResult === null || _highlightResult === void 0 ? void 0 : (_highlightResult$cont = _highlightResult.content) === null || _highlightResult$cont === void 0 ? void 0 : _highlightResult$cont.matchLevel) !== "none" && __jsx("div", {
+    className: "search-content-highlight"
+  })));
+}
+// CONCATENATED MODULE: ./src/components/docs/Search/index.tsx
+var Search_jsx = external_react_default.createElement;
+
+const client = external_algoliasearch_default("POOWZ64DSV", "96dc0442fd27b903440955dc03e5e60e");
+const Search_index = client.initIndex("hash_learn");
+const MAX_SEARCH_RESULTS = 10;
+function Search({
+  variant,
+  closeDrawer
+}) {
+  const {
+    0: searchText,
+    1: setSearchText
+  } = Object(external_react_["useState"])("");
+  const {
+    0: currentSearchedText,
+    1: setCurrentSearchedText
+  } = Object(external_react_["useState"])("");
+  const {
+    0: searchFocus,
+    1: setSearchFocus
+  } = Object(external_react_["useState"])(false);
+  const {
+    0: searchResults,
+    1: setSearchResults
+  } = Object(external_react_["useState"])([]);
+  const {
+    0: activeResult,
+    1: setActiveResult
+  } = Object(external_react_["useState"])(MAX_SEARCH_RESULTS);
+  const {
+    0: searchLoading,
+    1: setSearchLoading
+  } = Object(external_react_["useState"])(false);
+  const {
+    0: searchState,
+    1: setSearchState
+  } = Object(external_react_["useState"])("normal");
+
+  const closeResultsMenu = () => setSearchFocus(false);
+
+  const outerNode = Object(external_react_["useRef"])(null);
+  Object(external_react_["useEffect"])(() => {
+    const handleClick = e => {
+      if (outerNode.current) {
+        if (!outerNode.current.contains(e.target)) {
+          closeResultsMenu();
+        }
+      }
+    };
+
+    document.addEventListener("mousedown", handleClick, false);
+    return () => document.removeEventListener("mousedown", handleClick, false);
+  }, []);
+
+  const searchOnlineFunction = () => {
+    const desktopSearch = document.querySelector(".docs-list-sidebar");
+    const displayHeight = desktopSearch === null || desktopSearch === void 0 ? void 0 : desktopSearch.scrollHeight;
+
+    if (displayHeight && displayHeight !== 0) {
+      document.querySelector(`.search-bar input`).focus();
+    } else {
+      document.querySelector(`.search-bar${variant ? `.${variant}` : ""} input`).focus();
+    }
+
+    searchOnlineDebounce(searchText);
+  };
+
+  const searchOnlineDebounce = Object(external_react_["useMemo"])(() => Object(external_lodash_["debounce"])(searchText => {
+    setSearchState("normal");
+    setSearchLoading(true);
+    Search_index.search(searchText).then(({
+      hits
+    }) => {
+      if (hits.length === 0) {
+        setSearchState("noresults");
+      }
+
+      setSearchResults(hits.slice(0, MAX_SEARCH_RESULTS));
+      setActiveResult(MAX_SEARCH_RESULTS);
+      setCurrentSearchedText(searchText);
+      setSearchLoading(false);
+    }).catch(err => {
+      console.error(err);
+      setSearchLoading(false);
+      setSearchState("failed");
+    });
+  }, 500), []);
+  Object(external_react_["useEffect"])(() => {
+    if (searchText.trim() && searchText.length > 2) {
+      searchOnlineDebounce(searchText);
+    }
+
+    if (!searchText.trim()) {
+      setSearchState("normal");
+      setSearchResults([]);
+    }
+  }, [searchText, searchOnlineDebounce]);
+
+  const getHighlight = highlight => {
+    var _highlight$content;
+
+    const cleanContent = highlight === null || highlight === void 0 ? void 0 : (_highlight$content = highlight.content) === null || _highlight$content === void 0 ? void 0 : _highlight$content.value.replace(/\<(.*?)\>|\*|\#|\`|\\|\((.*?)\)|\[|\]/g, "").replace(/\<|\>/g, "");
+    const characterLimit = 120;
+    const slicedArray = cleanContent === null || cleanContent === void 0 ? void 0 : cleanContent.slice(0, characterLimit).split(" ");
+    const searchRegExp = new RegExp(currentSearchedText.split(" ").join("|"), "ig");
+    return slicedArray.slice(0, slicedArray.length - 1).join(" ").replace(searchRegExp, `<span class="highlight-text">$&</span>`);
+  };
+
+  const searchFormSubmit = e => {
+    e.preventDefault();
+
+    if (searchResults.length > 0 && searchResults[activeResult]) {
+      const {
+        slug,
+        type
+      } = searchResults[activeResult];
+      location.href = (`/${type}/${slug}`);
+      document.querySelector(".search-bar input").blur();
+    } else {
+      searchOnlineFunction();
+    }
+  };
+
+  return Search_jsx("div", {
+    ref: outerNode,
+    className: `search-bar ${variant !== null && variant !== void 0 ? variant : ""}`
+  }, Search_jsx("form", {
+    onSubmit: searchFormSubmit
+  }, Search_jsx("input", {
+    onFocus: () => {
+      setSearchFocus(true);
+    },
+    onKeyDown: e => {
+      if (searchResults.length > 0) {
+        if (e.key === "ArrowUp") {
+          e.preventDefault();
+
+          if (activeResult === 0) {
+            return setActiveResult(searchResults.length - 1);
+          }
+
+          setActiveResult(activeResult - 1);
+        }
+
+        if (e.key === "ArrowDown") {
+          e.preventDefault();
+
+          if (activeResult > searchResults.length - 1) {
+            return setActiveResult(0);
+          }
+
+          setActiveResult(activeResult + 1);
+        }
+      }
+    },
+    value: searchText,
+    onChange: e => setSearchText(e.target.value),
+    placeholder: "Search...",
+    required: true
+  }), Search_jsx("div", {
+    className: "search-icon"
+  }, searchLoading ? Search_jsx("div", null, "Loading") : Search_jsx("button", {
+    type: "submit"
+  }, Search_jsx("div", null, "Search Icon")))), searchResults.length > 0 && searchFocus && Search_jsx("div", {
+    className: "search-list-container"
+  }, Search_jsx("div", {
+    className: "search-list"
+  }, searchResults.map((searchResult, index) => Search_jsx(SearchItem, {
+    variant: variant,
+    searchResult: searchResult,
+    key: searchResult.objectID,
+    closeDrawer: closeDrawer,
+    index: index,
+    activeResult: activeResult,
+    setActiveResult: setActiveResult,
+    getHighlight: getHighlight,
+    closeResultsMenu: closeResultsMenu
+  })))), searchState !== "normal" && searchFocus && !searchLoading && Search_jsx("div", {
+    className: "search-list-container"
+  }, Search_jsx("div", {
+    className: "search-list search-list-info"
+  }, searchState === "noresults" ? `No results found for your search term - please try another term` : `We couldn't reach our servers - please try again`, ", or", " ", Search_jsx("a", {
+    href: "/contact",
+    className: "text-link"
+  }, "contact us"), ".")));
+}
+
+const domContainer = document.querySelector('#search-react-root');
+ReactDOM.render(e(Search), domContainer);
+        }
+    }, 100);
+</script >
